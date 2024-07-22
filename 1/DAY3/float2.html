@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 50px;
+            height: 50px;
+            padding: 20px;
+            margin: 10px;
+            border : 1px solid black
+        }
+        #box1 {
+            background-color: aqua;
+            float: left;
+            /* 왼쪽끝으로 정렬 */
+            /* float 위에 떠있는 느낌 */
+        }
+        #box2 {
+            background-color: rgb(7, 225, 109);
+            float: left;
+        }
+        #box3 {
+            background-color: rgb(228, 57, 231);
+            clear: both;
+            /* float 에 영향을 받지않고 정렬 */
+        }
+    </style>
+</head>
+<body>
+    <div id="box1">box1</div>
+    <div id="box2">box2</div>
+    <!-- <div style="background-color: blue; width: 250px; height:30px;"></div> -->
+    <div id="box3">box3</div>
+    <div id="box4">box4</div>
+</body>
+</html>
