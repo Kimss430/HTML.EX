@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src = "/DAY3/images/images.png" id="img1">
+</body>
+</html>
+<script>
+    // 클릭했을때 팝업창
+    // var obj = document.querySelector("#img1");
+    // obj.onclick = function(){
+    //     alert("하이!");
+    // }
+    
+    var obj = document.querySelector("#img1");
+    obj.onclick = function(e){
+        // 클릭했을때 이미지 변환
+        // obj.src = "/DAY3/images/ddd.jpg";
+        // console.log("이벤트 유형 ==> ", e.type);
+        // console.log("x 위치", e.pageX);
+        // console.log("y 위치", e.pageY);
+        // console.log(e);
+    }
+    // 마우스 올렸을때
+    obj.addEventListener("mouseover", () => {
+        obj.src = "/DAY3/images/ddd.jpg"
+    });
+    obj.addEventListener("mouseout", () => {
+        obj.src = "/DAY3/images/images.png"
+    });
+    
+    // obj.addEventListener("mouseover", () => {alert("test")});
+    // obj.addEventListener("mouseover", function(){alert("test")});
+    // obj.addEventListener("mouseover", test);
+
+    function test(){
+        alert("test");
+    }
+
+    
+</script>

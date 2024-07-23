@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="popup()">팝업</button> 
+</body>
+</html>
+<script>
+    console.log("screen.width ==>", screen.width);
+    console.log("screen.height ==>", screen.height);
+
+    console.log("screen.availWidth ==>", screen.width);
+    console.log("screen.availHeight ==>", screen.height);
+
+
+    // 팝업창 가운데로 이동하기
+    function popup(){
+        var left = (screen.availWidth - 500) / 2;
+        var top = (screen.availHeight - 300) / 2;
+        window.open("test2.html", "pop", 
+        `width=500, height=300, left=${left} , top=${top}`);
+    }
+</script>
