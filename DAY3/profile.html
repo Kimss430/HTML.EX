@@ -83,7 +83,7 @@
                     </li>
                 </ul>
             </div>
-            
+            <div id="time"></div>
         </aside>
         
          <div id="main">
@@ -172,10 +172,10 @@
        
     }
     obj.addEventListener("mouseover", () => {
-        obj.src = "/DAY3/images/AA.jpg"
+        obj.src = "images/AA.jpg"
     });
     obj.addEventListener("mouseout", () => {
-        obj.src = "/DAY3/images/images.png"
+        obj.src = "images/images.png"
     });
 
     
@@ -196,4 +196,10 @@
         document.querySelector('#desc2').style.display = "none"; 
         document.querySelector('#open2').style.display = "block"; 
     }
+
+    setInterval(()=>{
+        var time = new Date();
+        var obj = document.querySelector("#time");
+        obj.innerHTML = time.toLocaleTimeString();
+    }, 1000);
 </script>
