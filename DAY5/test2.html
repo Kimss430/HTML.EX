@@ -9,19 +9,13 @@
             width: 400px;
             height: 250px;
             border: 1px solid #eee;
-        }
-        .grad {
-        
-            background :linear-gradient(90deg, black, white 40%, black)
-        }
-
-        img{
+            background-size: contain;
+            margin: 20px;
+            background-image: url("../DAY3/images/AA.jpg");
+            animation: ani 1s infinite;
+            box-shadow: 0px 0px 15px;
             border-radius: 50%;
-            animation: ani 2s infinite linear;
-            
         }
-        
-        
         @keyframes ani{
             0% {
                 transform: rotate(0deg);
@@ -30,12 +24,10 @@
                 transform : rotateY(360deg);
             }
         }
-        
-
     </style>
 </head>
 
 <body>
-    <img src="../DAY3/images/AA.jpg" class="r-grad">
+    <div class="box"></div>
 </body>
 </html>
