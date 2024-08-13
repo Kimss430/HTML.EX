@@ -7,12 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order</title>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        function loadHTML(id, file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(id).innerHTML = data;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHTML('header', 'header.html');
+            loadHTML('footer', 'footer.html');
+        });
+    </script>
 </head>
 <body>
-    <a href="index.html" class="home-button">홈으로</a>
+    <div id="header"></div>
+
     <h1>온라인 예약</h1>
     <h2>포장 예약</h2>
-    <form id="takeoutForm">
+    <form id="takeoutForm" class="container">
         <label for="takeoutMenu">메뉴:</label>
         <select id="takeoutMenu" name="takeoutMenu">
             <!-- Options for menu items -->
@@ -25,7 +40,7 @@
     </form>
     
     <h2>배달 주문</h2>
-    <form id="deliveryForm">
+    <form id="deliveryForm" class="container">
         <label for="deliveryMenu">메뉴:</label>
         <select id="deliveryMenu" name="deliveryMenu">
             <!-- Options for menu items -->
@@ -35,6 +50,7 @@
         <button type="button" onclick="placeDeliveryOrder()">배달 주문하기</button>
     </form>
     
+    <div id="footer"></div>
     <script>
         function placeTakeoutOrder() {
             // Logic for placing a takeout order
@@ -43,7 +59,7 @@
         function placeDeliveryOrder() {
             // Logic for placing a delivery order
         }
-    </script>
+        </script>
 </body>
 </html>
 

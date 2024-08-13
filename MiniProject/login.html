@@ -7,41 +7,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        function loadHTML(id, file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(id).innerHTML = data;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHTML('header', 'header.html');
+            loadHTML('footer', 'footer.html');
+        });
+    </script>
 </head>
 <body>
-    <a href="index.html" class="home-button">홈으로</a>
+    <div id="header"></div>
+ 
     <h1>로그인</h1>
     <div class="container">
-        <form id="loginForm">
-            <label for="userId">아이디:</label>
-            <input type="text" id="userId" name="userId" required>
-            <label for="password">비밀번호:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="button" onclick="login()">로그인</button>
-        </form>
-        <p id="loginMessage" class="errorMessage"></p>
+        <!-- Vue 애플리케이션을 마운트할 요소 추가 -->
+        <div id="app">
+            <form id="loginForm">
+                <label for="userId">아이디:</label>
+                <input type="text" placeholder="아이디" v-model="user.id">
+                <label for="password">비밀번호:</label>
+                <input type="password" placeholder="비밀번호" v-model="user.pwd">
+                <button type="button" @click="fnLogin">로그인</button>
+            </form>
+            <p id="loginMessage" class="errorMessage"></p>
+        </div>
     </div>
+    
+    <div id="footer"></div>
     <script>
-        function login() {
-            const userId = document.getElementById('userId').value;
-            const password = document.getElementById('password').value;
-
-            fetch('UserServlet', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `action=login&userId=${userId}&password=${password}`
-            })
-            .then(response => response.text())
-            .then(data => {
-                if (data === 'success') {
-                    window.location.href = 'home.html';
-                } else {
-                    document.getElementById('loginMessage').innerText = '아이디나 비밀번호가 잘못되었습니다.';
+        const app = Vue.createApp({
+            data() {
+                return {
+                    user: {
+                        id: "",
+                        pwd: ""
+                    }
+                };
+            },
+            methods: {
+                fnLogin() {
+                    var self = this;
+                    $.ajax({
+                        url: "http://localhost:3000/login",
+                        dataType: "json",
+                        type: "POST",
+                        data: JSON.stringify(self.user),
+                        contentType: "application/json",
+                        success: function (data) {
+                            console.log(data);
+                            if (data[0].CNT > 0) {
+                                alert("로그인 성공");
+                                location.href = "index.html";
+                            } else {
+                                alert("아이디/패스워드를 다시 확인바람");
+                            }
+                        }
+                    });
                 }
-            });
-        }
+            }
+        });
+
+        app.mount('#app');
     </script>
 </body>
 </html>

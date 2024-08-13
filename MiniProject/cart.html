@@ -7,9 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        function loadHTML(id, file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(id).innerHTML = data;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHTML('header', 'header.html');
+            loadHTML('footer', 'footer.html');
+        });
+    </script>
 </head>
 <body>
-    <a href="index.html" class="home-button">홈으로</a>
+    <div id="header"></div>
+
     <h1>장바구니</h1>
     <div id="cartItems" class="container">
         <!-- Example cart item -->
@@ -17,6 +32,8 @@
         <p>가격: <span id="itemPrice">10,000</span></p>
         <button onclick="checkout()">주문하기</button>
     </div>
+    
+    <div id="footer"></div>
     <script>
         function checkout() {
             window.location.href = 'order.html';

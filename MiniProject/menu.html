@@ -7,9 +7,24 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        function loadHTML(id, file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(id).innerHTML = data;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHTML('header', 'header.html');
+            loadHTML('footer', 'footer.html');
+        });
+    </script>
 </head>
 <body>
-    <a href="index.html" class="home-button">홈으로</a>
+    <div id="header"></div>
+
     <h1>메뉴</h1>
     <nav>
         <a href="#steak">Steak</a> | 
@@ -43,7 +58,8 @@
         <h2>Wine</h2>
         <!-- Menu items for wine -->
     </section>
-
+    
+    <div id="footer"></div>
     <script>
         // Example of using jQuery
         $(document).ready(function() {
@@ -52,7 +68,7 @@
                 $(this).addClass('active');
             });
         });
-
+        
         // Example of using Vue.js
         const app = Vue.createApp({
             data() {
@@ -64,8 +80,8 @@
                 // Vue.js methods can go here
             }
         });
-
+        
         app.mount('body');
-    </script>
+        </script>
 </body>
 </html>

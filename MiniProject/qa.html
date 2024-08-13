@@ -7,11 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Q&A</title>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        function loadHTML(id, file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(id).innerHTML = data;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHTML('header', 'header.html');
+            loadHTML('footer', 'footer.html');
+        });
+    </script>
 </head>
 <body>
-    <a href="index.html">홈으로</a>
+    <div id="header"></div>
+
+    
     <h1>Q&A</h1>
-    <form id="qaForm">
+    <form id="qaForm" class="container">
         <label for="inquiryType">문의 유형 :</label>
         <select id="inquiryType" name="inquiryType">
             <option value="menu">메뉴 관련</option>
@@ -36,7 +52,7 @@
             const email = document.getElementById('email').value;
             const phoneNumber = document.getElementById('phoneNumber').value;
             const message = document.getElementById('message').value;
-
+            
             // AJAX request to submit inquiry
             fetch('InquiryServlet', {
                 method: 'POST',
@@ -50,6 +66,7 @@
                 document.getElementById('inquiryMessage').innerText = '문의가 성공적으로 제출되었습니다.';
             });
         }
-    </script>
+        </script>
+        <div id="footer"></div>
 </body>
 </html>
