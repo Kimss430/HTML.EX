@@ -172,24 +172,3 @@ main img {
     height: auto;
 }
 
-/* Footer styling */
-footer {
-    background-color: #f8f9fa;
-    padding: 1em;
-    border-top: 1px solid #dee2e6;
-    text-align: center;
-}
-
-footer p {
-    margin: 0;
-    font-size: 0.9em;
-}
-
-footer a {
-    text-decoration: none;
-    color: #007bff;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
