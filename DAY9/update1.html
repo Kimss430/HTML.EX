@@ -22,32 +22,13 @@
             padding: 5px 20px;
         }
         td input {width: 70px;}
-        .txt {
-            color : red;
-            font-weight: bold;
-        }
-        .txt2 {
-            color : blue;
-            font-weight: bold;
-        }
-        .txt3 {
-            font-weight: bold;
-        }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <input placeholder="검색어" v-model="keyword" @keyup.enter="fnGetList">
-        <select v-model="stuGrade" @change="fnGetList">
-            <option value="">::전체::</option>
-            <option value="1">1학년</option>
-            <option value="2">2학년</option>
-            <option value="3">3학년</option>
-        </select>
+        <input placeholder="검색어" v-model="keyword">
         <button @click="fnGetList">검색</button>
-        
-        <div style="margin-top: 10px;"></div>
         <table>
             <tr>
                 <th>학번</th>
@@ -69,9 +50,8 @@
                 <template v-else>            
                     <td>{{item.STU_NO}}</td>
                     <td>{{item.STU_NAME}}</td>
-                    <td :class="{txt3 : item.STU_DEPT == '기계'}">{{item.STU_DEPT}}</td>
-                    <!-- <td :class="{txt : item.STU_GRADE == 1}">{{item.STU_GRADE}}</td> -->
-                    <td :class="[item.STU_GRADE == 1 ? 'txt' : 'txt2']">{{item.STU_GRADE}}</td>
+                    <td>{{item.STU_DEPT}}</td>
+                    <td>{{item.STU_GRADE}}</td>
                     <td>
                         <span v-if="item.STU_GENDER == 'M'">남자</span>
                         <span v-else>여자</span>
@@ -88,16 +68,14 @@
                 return {
                     list : [],
                     keyword : "",
-                    updateStuNo : "",
-                    stuGrade :""
+                    updateStuNo : ""
                 };
             },
             methods: {
                 fnGetList() {
                     var self = this;
-                    var url = `http://localhost:3000/list?keyword=${self.keyword}&grade=${self.stuGrade}`
                     $.ajax({
-                        url: url,
+                        url: "http://localhost:3000/list?keyword=" + self.keyword,
                         dataType: "json",
                         type: "GET",
                         data: {},

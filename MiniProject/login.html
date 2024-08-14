@@ -27,16 +27,15 @@
  
     <h1>로그인</h1>
     <div class="container">
-        <!-- Vue 애플리케이션을 마운트할 요소 추가 -->
         <div id="app">
             <form id="loginForm">
                 <label for="userId">아이디:</label>
-                <input type="text" placeholder="아이디" v-model="user.id">
+                <input id="userId" type="text" placeholder="아이디" v-model="user.id">
                 <label for="password">비밀번호:</label>
-                <input type="password" placeholder="비밀번호" v-model="user.pwd">
+                <input id="password" type="password" placeholder="비밀번호" v-model="user.pwd">
                 <button type="button" @click="fnLogin">로그인</button>
             </form>
-            <p id="loginMessage" class="errorMessage"></p>
+            <p id="loginMessage" class="errorMessage">{{ message }}</p>
         </div>
     </div>
     
@@ -48,28 +47,37 @@
                     user: {
                         id: "",
                         pwd: ""
-                    }
+                    },
+                    message: ""
                 };
             },
             methods: {
-                fnLogin() {
-                    var self = this;
-                    $.ajax({
-                        url: "http://localhost:3000/login",
-                        dataType: "json",
-                        type: "POST",
-                        data: JSON.stringify(self.user),
-                        contentType: "application/json",
-                        success: function (data) {
-                            console.log(data);
-                            if (data[0].CNT > 0) {
-                                alert("로그인 성공");
-                                location.href = "index.html";
-                            } else {
-                                alert("아이디/패스워드를 다시 확인바람");
-                            }
+                async fnLogin() {
+                    try {
+                        const response = await $.ajax({
+                            url: "http://localhost:3000/login",
+                            dataType: "json",
+                            type: "POST",
+                            data: JSON.stringify(this.user),
+                            contentType: "application/json",
+                            xhrFields: {
+                                withCredentials: true // 쿠키와 세션 정보를 서버에 전송
+                            },
+                            croossDomain: true // 다른 도메인 간의 요청을 허용
+                        });
+
+                        if (response[0].CNT > 0) {
+                            // 로그인 성공 시 페이지 이동
+                            alert("로그인성공");
+                            window.location.href = "profile.html";
+                        } else {
+                            // 로그인 실패 시 메시지 표시
+                            alert("아이디 또는 비밀번호가 잘못되었습니다.");
                         }
-                    });
+                    } catch (error) {
+                        console.error('Error:', error);
+                        this.message = "로그인 중 오류가 발생했습니다.";
+                    }
                 }
             }
         });
