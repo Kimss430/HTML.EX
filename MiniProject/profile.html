@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        function loadHTML(id, file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(id).innerHTML = data;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHTML('header', 'header.html');
+            loadHTML('footer', 'footer.html');
+        });
+    </script>
+
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <div id="app">
+        <h1>내 프로필</h1>
+        <div v-if="user">
+            <p><strong>아이디:</strong> {{ user[0] }}</p>
+            <p><strong>이름:</strong> {{ user[1] }}</p>
+            <p><strong>이메일:</strong> {{ user[2] }}</p>
+            <!-- 추가 사용자 정보는 데이터베이스의 컬럼에 따라 수정 -->
+        </div>
+        <p v-if="errorMessage">{{ errorMessage }}</p>
+        <button id="logoutButton">로그아웃</button>
+    </div>
+    <div id="footer"></div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 로그아웃 버튼 클릭 시
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            $.ajax({
+                url: "http://localhost:3000/logout",
+                type: "GET",
+                success: function () {
+                    window.location.href = "login.html"; // 로그인 페이지로 이동
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+
+        // 페이지 로드 시 사용자 정보 조회
+        const app = Vue.createApp({
+            data() {
+                return {
+                    user: null,
+                    errorMessage: ""
+                };
+            },
+            created() {
+                this.fetchUserProfile();
+            },
+            methods: {
+                fetchUserProfile() {
+                    $.ajax({
+                        url: "http://localhost:3000/profile",
+                        type: "GET",
+                        xhrFields: {
+                            withCredentials: true // 쿠키를 함께 전송
+                        },
+                        success: (data) => {
+                            this.user = data;
+                        },
+                        error: (error) => {
+                            console.error('Error:', error);
+                            this.errorMessage = "로그인 세션이 만료되었습니다.";
+                            // 로그아웃 처리 및 로그인 페이지로 리다이렉트
+                            setTimeout(() => {
+                                // window.location.href = "login.html";
+                            }, 2000);
+                        }
+                    });
+                }
+            }
+        });
+
+        app.mount('#app');
+    });
+</script>
+
+</html>

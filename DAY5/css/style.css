@@ -1,0 +1,9 @@
+.box {
+    width: 400px;
+    height: 250px;
+    border: 1px solid #eee;
+}
+.grad {
+    /* background-color: black; */
+    background :linear-gradient(90deg, black, white 40%, black)
+}

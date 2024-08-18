@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- 학번 이름 학과 학년 출력  -->
+<body>
+    <div id="app">
+        {{stuNo}}
+    </div>
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+            data() {
+                return {
+                    // 변수 영역, ex) name : '홍길동', age : 20
+                    stuNo : ""
+                };
+            },
+            methods: {
+               // 메소드 영역 
+               
+            },
+            mounted() {
+                // 처음 시작할 때 실행되는 부분
+                const queryParams = new URLSearchParams(window.location.search);
+                this.stuNo = queryParams.get('stuNo') || ''; 
+            }
+        });
+        app.mount('#app');

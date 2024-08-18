@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/jquery-3.7.1.min.js"></script> 
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <meta charset="EUC-KR">
+    <title>Insert title here</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    
+</div>
+
+<script>
+    const app = Vue.createApp({
+        data() {  // 변수선언
+            return {  // 맵형태_ 키 : 벨루 형태
+               name : "홍길동",
+               age : 20
+            };
+        },
+        methods: {  // 함수형태 _ 
+            test1(){
+                alert("안녕");
+            },
+            test2(){
+                alrert(this.name);
+            },
+            test3(){
+                alert("안녕3333");
+            }
+        },
+        mounted() {
+            this.test3();
+        }
+    });
+    app.mount('#app');
+</script>
+</body>
+</html>

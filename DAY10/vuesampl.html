@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input v-model="info.stuNo" placeholder="학번">
+        <input v-model="info.stuName" placeholder="이름">
+        <input v-model="info.stuDept" placeholder="학과">
+
+        <button @click="plus()">추가!</button>
+
+        <button @click="revuew">실행!</button>
+    </div>
+</body>
+
+</html>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                info: {
+                    stuNo: "",
+                    stuName: "",
+                    stuDept: ""
+                }
+            }
+        },
+        methods: {
+            plus() {
+                var self = this;
+                $.ajax({
+                    url: "http://localhost:3000/plus",
+                    dataType: "json",
+                    type: "POST",
+                    data: JSON.stringify(self.info), // json 형태로 바꿔
+                    contentType: "application/json",
+                    success: function (data) {
+                        alert(data[0].message);
+                    }
+                });
+            },
+            revuew() { // 12344   
+                var self = this;
+                var url = `http://localhost:3000/stuDelete?stuNo=12344`
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    type: "GET",
+                    data: {},
+                    success: function (data) {
+                        alert(data.msg);
+                    }
+                });
+            },
+        },
+        mounted() {
+            // 처음 화면이 실행될때 호출할 부분
+            
+        }
+    });
+    app.mount('#app');
+</script>

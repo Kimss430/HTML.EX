@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 400px;
+            height: 250px;
+            border: 1px solid #eee;
+            background-size: contain;
+            margin: 20px;
+            background-image: url("../DAY3/images/AA.jpg");
+            animation: ani 1s infinite;
+            box-shadow: 0px 0px 15px;
+            border-radius: 50%;
+        }
+        @keyframes ani{
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform : rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+</html>
