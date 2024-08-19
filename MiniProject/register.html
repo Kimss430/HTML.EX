@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/common.js"></script>
     <style>
         body {
             background-color: #f8f9fa;
@@ -72,7 +73,7 @@
             background-color: #0056b3;
         }
     </style>
-    <script>
+    <!-- <script>
         function loadHTML(id, file) {
             fetch(file)
                 .then(response => response.text())
@@ -85,7 +86,7 @@
             loadHTML('header', 'header.html');
             loadHTML('footer', 'footer.html');
         });
-    </script>
+    </script> -->
 </head>
 
 <body>
@@ -190,7 +191,9 @@
                 });
             },
             fnSubmit() {
+                
                 var self = this;
+                console.log(self.info);
                 if (self.info.pwd.length < 6) {
                     alert("패스워드 6글자이상!")
                     return;

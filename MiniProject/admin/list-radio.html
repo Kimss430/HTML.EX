@@ -53,11 +53,11 @@
 <body>
     <div id="app">
         <input placeholder="검색어" v-model="keyword" @keyup.enter="fnGetList">
-        <select v-model="phone" @change="fnGetList">
+        <!-- <select v-model="phone" @change="fnGetList">
             <option value="">::성별::</option>
             <option value="1">남자</option>
             <option value="2">여자</option>
-        </select>
+        </select> -->
         <button @click="fnGetList">검색</button>
         <div style="margin-top : 20px;"></div>
         <select class="op" v-model="orderName" @change="fnGetList">
@@ -130,7 +130,7 @@
 
                 fnRemove(){
                     var self = this;
-                    if(!confirm("정말 삭제할거냐?")){
+                    if(!confirm("정말 삭제하시겠습니까?")){
                         return;
                     };           
                     var url = `http://localhost:3000/delete?id=${self.selectItem}`
@@ -147,7 +147,7 @@
                 },
 
                 fnSave(item){
-                    if(!confirm("저장 할거냐?")){
+                    if(!confirm("저장 하시겠습니까?")){
                         return;
                     }; 
                     var self = this;

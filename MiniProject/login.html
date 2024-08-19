@@ -1,30 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="css/style.css">
-    <script>
-        function loadHTML(id, file) {
-            fetch(file)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(id).innerHTML = data;
-                });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadHTML('header', 'header.html');
-            loadHTML('footer', 'footer.html');
-        });
-    </script>
+    <script src="js/common.js"></script>
 </head>
+
 <body>
     <div id="header"></div>
- 
+
     <h1>로그인</h1>
     <div class="container">
         <div id="app">
@@ -38,7 +28,7 @@
             <p id="loginMessage" class="errorMessage">{{ message }}</p>
         </div>
     </div>
-    
+
     <div id="footer"></div>
     <script>
         const app = Vue.createApp({
@@ -48,8 +38,13 @@
                         id: "",
                         pwd: ""
                     },
+                    isLoggedIn: false,
+                    isAdmin: false,
                     message: ""
                 };
+            },
+            mounted() {
+                this.checkLoginStatus();
             },
             methods: {
                 async fnLogin() {
@@ -63,13 +58,35 @@
                             xhrFields: {
                                 withCredentials: true // 쿠키와 세션 정보를 서버에 전송
                             },
-                            croossDomain: true // 다른 도메인 간의 요청을 허용
+                            crossDomain: true // 다른 도메인 간의 요청을 허용
                         });
+                        console.log(response);
 
-                        if (response[0].CNT > 0) {
-                            // 로그인 성공 시 페이지 이동
-                            alert("로그인성공");
-                            window.location.href = "profile.html";
+                        if (response.length != 0) {
+                            console.log(response[0]);
+                            // 로그인 성공 시
+                            this.isLoggedIn = true;
+                            sessionStorage.setItem("isLoggedIn", true);
+
+                            // 사용자 역할에 따라 세션에 저장
+                            if (response[0].ROLE === "admin") {
+                                this.isAdmin = true;
+                                sessionStorage.setItem("userRole", "admin");
+                            } else {
+                                this.isAdmin = false;
+                                sessionStorage.setItem("userRole", "user");
+                            }
+
+                            alert("로그인 성공");
+                            sessionStorage.setItem("userId", response[0].USER_ID);  // 세션스토리지에 저장
+                            sessionStorage.setItem("userName", response[0].USERNAME);  // 세션스토리지에 저장
+
+                            if (this.isAdmin) {
+                                window.location.href = "admin.html"; // 관리자 페이지로 이동
+                            } else {
+                                window.location.href = "index.html"; // 일반 사용자 페이지로 이동
+                            }
+
                         } else {
                             // 로그인 실패 시 메시지 표시
                             alert("아이디 또는 비밀번호가 잘못되었습니다.");
@@ -78,6 +95,30 @@
                         console.error('Error:', error);
                         this.message = "로그인 중 오류가 발생했습니다.";
                     }
+                },
+                logout() {
+                    // 로그아웃 처리
+                    $.ajax({
+                        url: "http://localhost:3000/logout",
+                        type: "GET",
+                        success: () => {
+                            this.isLoggedIn = false;
+                            this.isAdmin = false;
+                            sessionStorage.removeItem("isLoggedIn"); // 세션스토리지에서 로그인 상태 제거
+                            sessionStorage.removeItem("userRole");  // 역할 정보도 제거
+                            alert("로그아웃되었습니다.");
+                            window.location.href = "login.html";
+                        },
+                        error: (error) => {
+                            console.error('Error:', error);
+                            this.message = "로그아웃 중 오류가 발생했습니다.";
+                        }
+                    });
+                },
+                checkLoginStatus() {
+                    // 세션스토리지에 저장된 로그인 상태 확인
+                    this.isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
+                    this.isAdmin = sessionStorage.getItem("userRole") === "admin";
                 }
             }
         });
@@ -85,4 +126,5 @@
         app.mount('#app');
     </script>
 </body>
+
 </html>
