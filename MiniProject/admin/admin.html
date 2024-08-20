@@ -5,249 +5,163 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 페이지</title>
     <link rel="stylesheet" href="css/admin-style.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <style>
+        /* 기존 CSS 스타일 유지 및 통합 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        header {
+            background-color: #f4f4f4;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* 사용자 목록 페이지 스타일 */
+        #app {
+            width: 100%;
+            margin: 0 auto;
+        }
+        table {
+            width: 600px;
+        }
+        table, tr, td, th {
+            border: 1px solid;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        tr, td, th {
+            padding: 5px 10px;
+        }
+        td input {
+            width: 70px;
+        }
+        .txt {
+            font-weight: bold;
+        }
+        .txt2 {
+            color: blue;
+            font-weight: bold;
+        }
+        select {
+            margin: 0 10px;
+            padding: 2px;
+        }
+        .btn {
+            margin-top: 5px;
+            float: right;
+        }
+        input[type="radio"] {
+            width: 20px;
+        }
+        .op {
+            margin: 10px;
+        }
+    </style>
 </head>
-<style>
-    /* 기본 스타일 설정 */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f2f5;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* 헤더 스타일 */
-header {
-    background-color: #343a40;
-    color: #ffffff;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2em;
-}
-
-/* 네비게이션 버튼 스타일 */
-nav {
-    margin: 20px;
-    text-align: center;
-}
-
-nav button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 12px 24px;
-    margin: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-nav button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-
-/* 섹션 스타일 */
-.section {
-    padding: 30px;
-    margin: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.section h2 {
-    margin-top: 0;
-    font-size: 1.5em;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 10px;
-}
-
-/* 테이블 스타일 */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 15px;
-    text-align: left;
-}
-
-th {
-    background-color: #007bff;
-    color: #ffffff;
-    font-weight: bold;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
-    cursor: pointer;
-}
-
-/* 오류 메시지 스타일 */
-.error {
-    color: #dc3545;
-    font-size: 14px;
-    margin-top: 10px;
-    text-align: center;
-}
-
-/* 버튼 및 링크 스타일 */
-button, a {
-    text-decoration: none;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    padding: 12px 24px;
-    background-color: #007bff;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    font-size: 16px;
-}
-
-button:hover, a:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-
-a {
-    color: #007bff;
-    font-weight: bold;
-}
-
-a:hover {
-    color: #0056b3;
-}
-
-/* 폼 스타일 */
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-form label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-form input {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-form button {
-    align-self: flex-end;
-}
-</style>
 <body>
     <div id="app">
         <header>
             <h1>관리자 페이지</h1>
             <nav>
-                <button @click="currentSection = 'dashboard'">대시보드</button>
-                <button @click="currentSection = 'userManagement'">회원 관리</button>
-                <button @click="currentSection = 'orderManagement'">주문 관리</button>
-                <button @click="currentSection = 'qaManagement'">Q&A 관리</button>
+                <button @click="navigateTo('dashboard')">대시보드</button>
+                <button @click="navigateTo('userManagement')">회원 관리</button>
+                <button @click="navigateTo('orderManagement')">주문 관리</button>
+                <button @click="navigateTo('qaManagement')">Q&A 관리</button>
+                <button @click="navigateTo('userList')">사용자 목록</button>
             </nav>
         </header>
 
+        <!-- 대시보드 섹션 -->
         <div v-if="currentSection === 'dashboard'" class="section">
             <h2>대시보드</h2>
             <p>관리자 대시보드입니다.</p>
-            <!-- 대시보드 관련 내용 -->
         </div>
 
+        <!-- 회원 관리 섹션 -->
         <div v-if="currentSection === 'userManagement'" class="section">
             <h2>회원 관리</h2>
+            <input placeholder="검색어" v-model="keyword" @keyup.enter="fnGetList">
+            <button @click="fnGetList">검색</button>
+            <div style="margin-top: 20px;"></div>
+            <select class="op" v-model="orderName" @change="fnGetList">
+                <option value="USERNAME">이름</option>
+                <option value="USER_ID">아이디</option>
+                <option value="PHONE_NUMBER">전화번호</option>
+            </select>
+            <label><input type="radio" @change="fnGetList" v-model="orderKind" name="order" value="ASC">오름차순</label>
+            <label><input type="radio" @change="fnGetList" v-model="orderKind" name="order" value="DESC">내림차순</label>
             <table>
                 <thead>
                     <tr>
+                        <th>선택</th>
                         <th>아이디</th>
                         <th>이름</th>
-                        <th>이메일</th>
+                        <th>메일</th>
                         <th>전화번호</th>
+                        <th>성별</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="user in users" :key="user.id">
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.phone }}</td>
+                    <tr v-for="(item, index) in list" :key="item.USER_ID">
+                        <td><input type="radio" :id="'user-' + index" name="userKey" :value="item.USER_ID" v-model="selectItem"></td>
+                        <td><label :for="'user-' + index">{{ item.USER_ID }}</label></td>
+                        <td><a href="javascript:;" @click="fnInfo(item.USER_ID)">{{ item.USERNAME }}</a></td>
+                        <td>{{ item.EMAIL }}</td>
+                        <td>{{ item.PHONE_NUMBER }}</td>
+                        <td>
+                            <span v-if="item.GENDER === 'M'">남자</span>
+                            <span v-else>여자</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
+            <button @click="fnSave" class="btn">저장</button>
+            <button @click="fnRemove" class="btn">삭제</button>
         </div>
 
+        <!-- 주문 관리 섹션 -->
         <div v-if="currentSection === 'orderManagement'" class="section">
             <h2>주문 관리</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>주문 ID</th>
-                        <th>사용자 ID</th>
-                        <th>메뉴</th>
-                        <th>수량</th>
-                        <th>상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="order in orders" :key="order.id">
-                        <td>{{ order.id }}</td>
-                        <td>{{ order.userId }}</td>
-                        <td>{{ order.menu }}</td>
-                        <td>{{ order.quantity }}</td>
-                        <td>{{ order.status }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- 주문 관리 내용 추가 -->
         </div>
 
+        <!-- Q&A 관리 섹션 -->
         <div v-if="currentSection === 'qaManagement'" class="section">
             <h2>Q&A 관리</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>문의 ID</th>
-                        <th>작성자명</th>
-                        <th>내용</th>
-                        <th>답변</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="qa in qas" :key="qa.id">
-                        <td>{{ qa.id }}</td>
-                        <td>{{ qa.author }}</td>
-                        <td>{{ qa.content }}</td>
-                        <td>{{ qa.response }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- Q&A 관리 내용 추가 -->
+        </div>
+
+        <!-- 사용자 목록 섹션 -->
+        <div v-if="currentSection === 'userList'" class="section">
+            <!-- 사용자 목록 페이지 내용 추가 -->
         </div>
     </div>
 
@@ -256,47 +170,72 @@ form button {
             data() {
                 return {
                     currentSection: 'dashboard',
-                    users: [],
-                    orders: [],
-                    qas: []
+                    list: [],
+                    keyword: "",
+                    selectItem: "",
+                    orderName: "USERNAME",
+                    orderKind: "ASC"
                 };
             },
             methods: {
-                fetchUsers() {
-                    // 예시 API 호출
-                    fetch('http://localhost:3000/api/users')
-                        .then(response => response.json())
-                        .then(data => {
-                            this.users = data;
-                        });
+                navigateTo(section) {
+                    this.currentSection = section;
+                    if (section === 'userManagement') {
+                        this.fnGetList();
+                    }
                 },
-                fetchOrders() {
-                    // 예시 API 호출
-                    fetch('http://localhost:3000/api/orders')
-                        .then(response => response.json())
-                        .then(data => {
-                            this.orders = data;
-                        });
+                fnGetList() {
+                    const url = `http://localhost:3000/list?keyword=${this.keyword}&orderName=${this.orderName}&orderKind=${this.orderKind}`;
+                    $.ajax({
+                        url: url,
+                        dataType: "json",
+                        type: "GET",
+                        success: (data) => {
+                            this.list = data;
+                        },
+                        error: (error) => {
+                            console.error('Error fetching list:', error);
+                        }
+                    });
                 },
-                fetchQAs() {
-                    // 예시 API 호출
-                    fetch('http://localhost:3000/api/qas')
-                        .then(response => response.json())
-                        .then(data => {
-                            this.qas = data;
-                        });
+                fnSave() {
+                    if (!confirm("저장 하시겠습니까?")) return;
+                    const url = `http://localhost:3000/update?id=${this.selectItem}`;
+                    $.ajax({
+                        url: url,
+                        dataType: "json",
+                        type: "GET",
+                        success: (data) => {
+                            alert(data[0].message);
+                            this.fnGetList();
+                        },
+                        error: (error) => {
+                            console.error('Error saving data:', error);
+                        }
+                    });
+                },
+                fnRemove() {
+                    if (!confirm("정말 삭제하시겠습니까?")) return;
+                    const url = `http://localhost:3000/delete?id=${this.selectItem}`;
+                    $.ajax({
+                        url: url,
+                        dataType: "json",
+                        type: "GET",
+                        success: (data) => {
+                            alert(data[0].message);
+                            this.fnGetList();
+                        },
+                        error: (error) => {
+                            console.error('Error removing data:', error);
+                        }
+                    });
+                },
+                fnInfo(id) {
+                    location.href = `info.html?id=${id}`;
                 }
             },
-            watch: {
-                currentSection(newSection) {
-                    if (newSection === 'userManagement') {
-                        this.fetchUsers();
-                    } else if (newSection === 'orderManagement') {
-                        this.fetchOrders();
-                    } else if (newSection === 'qaManagement') {
-                        this.fetchQAs();
-                    }
-                }
+            mounted() {
+                this.fnGetList(); // 초기 로드 시 사용자 목록을 가져옵니다.
             }
         });
 

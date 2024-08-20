@@ -1,4 +1,3 @@
-// common.js
 function loadHTML(id, file) {
     fetch(file)
         .then(response => response.text())
@@ -15,8 +14,8 @@ function initializeVueApp() {
     const app = Vue.createApp({
         data() {
             return {
-                isLoggedIn: false,  // 로그인 상태 관리
-                isAdmin: false      // 관리자 상태 관리
+                isLoggedIn: false,  // 로그인 상태
+                isAdmin: false      // 관리자 상태
             };
         },
         mounted() {
@@ -25,8 +24,8 @@ function initializeVueApp() {
         methods: {
             checkLoginStatus() {
                 this.isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
-                const userRole = sessionStorage.getItem("userRole");
-                this.isAdmin = userRole === "admin001"; // 사용자가 관리자일 경우 true로 설정
+                const userRole = sessionStorage.getItem("role");
+                this.isAdmin = userRole === "ADMIN"; // 사용자가 관리자일 경우 true로 설정
             },
             logout() {
                 $.ajax({
@@ -34,14 +33,15 @@ function initializeVueApp() {
                     type: "GET",
                     success: () => {
                         this.isLoggedIn = false;
-                        this.isAdmin = false;  // 로그아웃 시 관리자 상태 초기화
+                        this.isAdmin = false; // 로그아웃 시 관리자 상태 초기화
                         sessionStorage.removeItem("isLoggedIn");
-                        sessionStorage.removeItem("userRole");  // 역할 정보도 제거
+                        sessionStorage.removeItem("role"); // 역할 정보도 제거
                         alert("로그아웃되었습니다.");
                         window.location.href = "login.html";
                     },
                     error: (error) => {
                         console.error('Error:', error);
+                        alert("로그아웃 중 오류가 발생했습니다.");
                     }
                 });
             }

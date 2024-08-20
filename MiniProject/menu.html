@@ -4,99 +4,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
+    <title>Restaurant Menu</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="js/common.js"></script>
-    <!-- <script>
-        function loadHTML(id, file) {
-            fetch(file)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(id).innerHTML = data;
-                });
+    <style>
+        /* Reset and basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadHTML('header', 'header.html');
-            loadHTML('footer', 'footer.html');
-        });
-    </script> -->
-    
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
 
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #ff6347;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 1.2em;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: #ff6347;
+            color: #fff;
+        }
+
+        .menu-section {
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .menu-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .menu-section p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        #footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #777;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="header"></div>
+    <header id="header"></header>
 
-    <h1>메뉴</h1>
-    <nav>
+    <main>
+        <h1>Our Menu</h1>
 
-        <a href="#steak">Steak</a> |
+        <nav>
+            <ul>
+                <li><a href="#steak">Steak</a></li>
+                <li><a href="#pizza">Pizza</a></li>
+                <li><a href="#pasta">Pasta</a></li>
+                <li><a href="#salad">Salad</a></li>
+                <li><a href="#wine">Wine</a></li>
+            </ul>
+        </nav>
 
-        <a href="#pizza">Pizza</a> |
+        <section id="steak" class="menu-section">
+            <h2>Steak</h2>
+            <img src="../MiniProject/images/뉴욕스테이크.jpg" alt="New York Steak">
+            <p>두툼한 뉴욕 스타일 스테이크 - $25.99</p>
+            <button @click="addToCart('New York Steak', 25.99)">Add to Cart</button>
+        </section>
 
-        <a href="#pasta">Pasta</a> |
-        <a href="#salad">Salad</a> |
-        <a href="#wine">Wine</a>
-    </nav>
+        <section id="pizza" class="menu-section">
+            <h2>Pizza</h2>
+            <img src="../MiniProject/images/마르게리타피자.jpg" alt="Margherita Pizza">
+            <p>신선한 토마토와 모짜렐라 치즈 피자 - $12.49</p>
+            <button @click="addToCart('Margherita Pizza', 12.49)">Add to Cart</button>
+        </section>
 
-    <section id="steak">
-        <image src="../MiniProject/images/뉴욕스테이크.jpg"></image>
-        <h2>Steak</h2>
-        <!-- Menu items for steak -->
-    </section>
+        <section id="pasta" class="menu-section">
+            <h2>Pasta</h2>
+            <img src="../MiniProject/images/감베리오일파스타.jpg" alt="Gamberi Oil Pasta">
+            <p>해산물과 오일이 가득한 파스타 - $15.99</p>
+            <button @click="addToCart('Gamberi Oil Pasta', 15.99)">Add to Cart</button>
+        </section>
 
-    <section id="pizza">
-        <image src="../MiniProject/images/마르게리타피자.jpg"></image>
-        <h2>Pizza</h2>
-        <!-- Menu items for pizza -->
-    </section>
+        <section id="salad" class="menu-section">
+            <h2>Salad</h2>
+            <img src="../MiniProject/images/연어리스셀러드.jpg" alt="Salmon and Fresh Salad">
+            <p>연어와 신선한 채소가 가득한 샐러드 - $13.49</p>
+            <button @click="addToCart('Salmon and Fresh Salad', 13.49)">Add to Cart</button>
+        </section>
 
-    <section id="pasta">
-        <image src="../MiniProject/images/감베리오일파스타.jpg"></image>
-        <h2>Pasta</h2>
-        <!-- Menu items for pasta -->
-    </section>
+        <section id="wine" class="menu-section">
+            <h2>Wine</h2>
+            <img src="../MiniProject/images/진레드와인.jpg" alt="Zinfandel Red Wine">
+            <p>풍부한 맛의 진 레드 와인 - $22.99</p>
+            <button @click="addToCart('Zinfandel Red Wine', 22.99)">Add to Cart</button>
+        </section>
+    </main>
 
-    <section id="salad">
-        <image src="../MiniProject/images/연어리스셀러드.jpg"></image>
-        <h2>Salad</h2>
-        <!-- Menu items for salad -->
-    </section>
+    <footer id="footer"></footer>
 
-    <section id="wine">
-        <image src="../MiniProject/images/진레드와인.jpg"></image>
-        <h2>Wine</h2>
-        <!-- Menu items for wine -->
-    </section>
-
-    <div id="footer"></div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
     <script>
-        // Example of using jQuery
-        $(document).ready(function () {
-            $('nav a').on('click', function () {
-                $('nav a').removeClass('active');
-                $(this).addClass('active');
-            });
-        });
-
-        // Example of using Vue.js
-        const app = Vue.createApp({
+        Vue.createApp({
             data() {
                 return {
-                    // Vue.js data can go here
+                    isLoggedIn: sessionStorage.getItem('isLoggedIn') === 'true',
+                    userId: sessionStorage.getItem('userId'),
+                    cart: JSON.parse(sessionStorage.getItem('cart')) || []
                 };
             },
+            computed: {
+                cartTotal() {
+                    return this.cart.reduce((total, item) => total + item.price * item.quantity, 0);
+                }
+            },
             methods: {
-                // Vue.js methods can go here
-            }
-        });
+                addToCart(itemName, itemPrice) {
+                    if (!this.isLoggedIn) {
+                        alert('You need to log in to add items to your cart.');
+                        return;
+                    }
 
-        app.mount('body');
+                    let existingItem = this.cart.find(item => item.name === itemName);
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        this.cart.push({ name: itemName, price: itemPrice, quantity: 1 });
+                    }
+                    this.saveCart();
+                    alert(`${itemName} has been added to your cart.`);
+                },
+                saveCart() {
+                    sessionStorage.setItem('cart', JSON.stringify(this.cart));
+                },
+                clearCart() {
+                    this.cart = [];
+                    this.saveCart();
+                },
+                checkout() {
+                    if (!this.isLoggedIn) {
+                        alert('You need to log in to proceed with checkout.');
+                        return;
+                    }
+                    alert('Checkout feature is not implemented yet.');
+                }
+            }
+        }).mount('body');
     </script>
 </body>
 
 </html>
+
+

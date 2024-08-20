@@ -217,6 +217,7 @@
                     contentType: "application/json",
                     success: function (data) {
                         alert(data[0].message);
+                        window.location.href = "login.html";
                     },
                     error: function (xhr, status, error) {
                         // console.error("AJAX Error:", status, error);

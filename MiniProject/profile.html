@@ -196,6 +196,7 @@
                 async loadUserProfile() {
                     try {
                         const userId = sessionStorage.getItem("userId");
+                        console.log("sessionStorage userId:", userId);
                         if (!userId) {
                             this.message = "세션에서 사용자 ID를 찾을 수 없습니다.";
                             return;
