@@ -11,6 +11,30 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="js/common.js"></script>
     <style>
+        /* Top 버튼 스타일 */
+        #scrollToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px 20px; /* 버튼의 패딩을 증가시켜 크기 조정 */
+            font-size: 20px; /* 글자 크기를 증가시켜 버튼 크기 조정 */
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: none; /* Initially hidden */
+            transition: opacity 0.3s, transform 0.3s;
+            width: 60px; /* 버튼의 너비 */
+            height: 60px; /* 버튼의 높이 */
+            line-height: 1.5; /* 버튼 텍스트의 줄 높이 조정 */
+        }
+
+        #scrollToTop:hover {
+            background-color: #e55347;
+            transform: scale(1.1);
+        }
         /* Reset and basic styling */
         * {
             margin: 0;
@@ -154,6 +178,8 @@
 
     <footer id="footer"></footer>
 
+    <button id="scrollToTop" title="Go to Top">Top</button>
+
     <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
     <script>
         Vue.createApp({
@@ -201,9 +227,21 @@
                 }
             }
         }).mount('body');
+
+        // Scroll to Top Button
+        document.addEventListener('scroll', function () {
+            const scrollToTopButton = document.getElementById('scrollToTop');
+            if (window.scrollY > 200) { // Show button after scrolling down 200px
+                scrollToTopButton.style.display = 'block';
+            } else {
+                scrollToTopButton.style.display = 'none';
+            }
+        });
+
+        document.getElementById('scrollToTop').addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
 </body>
 
 </html>
-
-
