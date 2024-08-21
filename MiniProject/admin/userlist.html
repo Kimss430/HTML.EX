@@ -128,7 +128,7 @@ label {
         <select class="op" v-model="orderName" @change="fnGetList">
             <option value="USERNAME">이름</option>
             <option value="USER_ID">아이디</option>
-            <option value="PHONE_NUMBER">전화번호</option>
+            <!-- <option value="PHONE_NUMBER">전화번호</option> -->
         </select>
         <label><input type="radio" @change="fnGetList" v-model="orderKind" name="order" value="ASC">오름차순</label>
         <label><input type="radio" @change="fnGetList" v-model="orderKind" name="order" value="DESC">내림차순</label>

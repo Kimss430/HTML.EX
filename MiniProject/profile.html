@@ -198,7 +198,7 @@
                         const userId = sessionStorage.getItem("userId");
                         console.log("sessionStorage userId:", userId);
                         if (!userId) {
-                            this.message = "세션에서 사용자 ID를 찾을 수 없습니다.";
+                            alert("세션에서 사용자 ID를 찾을 수 없습니다.");
                             return;
                         }
                         const response = await $.ajax({
@@ -211,17 +211,17 @@
                         this.user = response;
                     } catch (error) {
                         console.error('Error:', error);
-                        this.message = "프로필을 로드하는 중 오류가 발생했습니다.";
+                        alert("프로필을 로드하는 중 오류가 발생했습니다.");
                     }
                 },
                 async updateProfile() {
                     try {
                         if (this.user.pwd !== this.user.pwdChack) {
-                            this.message = "비밀번호가 일치하지 않습니다.";
+                            alert("비밀번호가 일치하지 않습니다.");
                             return;
                         }
                         if (this.user.pwd.length < 6) {
-                            this.message = "비밀번호는 6자 이상이어야 합니다.";
+                            alert("비밀번호는 6자 이상이어야 합니다.");
                             return;
                         }
 
@@ -236,13 +236,15 @@
                         });
 
                         if (response.success) {
-                            this.message = "프로필이 성공적으로 업데이트되었습니다.";
+                            alert("프로필이 성공적으로 업데이트되었습니다.")
+                            window.location.href = "index.html";
+                            // alert("프로필이 성공적으로 업데이트되었습니다.";
                         } else {
-                            this.message = "프로필 업데이트에 실패했습니다.";
+                            alert("프로필 업데이트에 실패했습니다.");
                         }
                     } catch (error) {
                         console.error('Error:', error);
-                        this.message = "프로필을 업데이트하는 중 오류가 발생했습니다.";
+                        alert("모든 값을 입력 해주세요.");
                     }
                 },
                 openAddressSearch() {
