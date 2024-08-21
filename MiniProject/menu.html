@@ -2,13 +2,12 @@
 <html lang="en">
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Menu</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="js/common.js"></script>
     <style>
         /* Top 버튼 스타일 */
@@ -142,37 +141,37 @@
 
         <section id="steak" class="menu-section">
             <h2>Steak</h2>
-            <img src="../MiniProject/images/뉴욕스테이크.jpg" alt="New York Steak">
+            <img src="../MiniProject/images/뉴욕스테이크.jpg" alt="뉴욕스테이크">
             <p>두툼한 뉴욕 스타일 스테이크 - $25.99</p>
-            <button @click="addToCart('New York Steak', 25.99)">Add to Cart</button>
+            <button @click="addToCart('뉴욕스테이크', 25.99)">장바구니 담기</button>
         </section>
 
         <section id="pizza" class="menu-section">
             <h2>Pizza</h2>
-            <img src="../MiniProject/images/마르게리타피자.jpg" alt="Margherita Pizza">
+            <img src="../MiniProject/images/마르게리타피자.jpg" alt="마르게리타피자">
             <p>신선한 토마토와 모짜렐라 치즈 피자 - $12.49</p>
-            <button @click="addToCart('Margherita Pizza', 12.49)">Add to Cart</button>
+            <button @click="addToCart('마르게리타피자', 12.49)">장바구니 담기</button>
         </section>
 
         <section id="pasta" class="menu-section">
             <h2>Pasta</h2>
-            <img src="../MiniProject/images/감베리오일파스타.jpg" alt="Gamberi Oil Pasta">
+            <img src="../MiniProject/images/감베리오일파스타.jpg" alt="감베리오일파스타">
             <p>해산물과 오일이 가득한 파스타 - $15.99</p>
-            <button @click="addToCart('Gamberi Oil Pasta', 15.99)">Add to Cart</button>
+            <button @click="addToCart('감베리오일파스타', 15.99)">장바구니 담기</button>
         </section>
 
         <section id="salad" class="menu-section">
             <h2>Salad</h2>
-            <img src="../MiniProject/images/연어리스셀러드.jpg" alt="Salmon and Fresh Salad">
+            <img src="../MiniProject/images/연어리스셀러드.jpg" alt="연어리스셀러드">
             <p>연어와 신선한 채소가 가득한 샐러드 - $13.49</p>
-            <button @click="addToCart('Salmon and Fresh Salad', 13.49)">Add to Cart</button>
+            <button @click="addToCart('연어리스셀러드', 13.49)">장바구니 담기</button>
         </section>
 
         <section id="wine" class="menu-section">
             <h2>Wine</h2>
-            <img src="../MiniProject/images/진레드와인.jpg" alt="Zinfandel Red Wine">
+            <img src="../MiniProject/images/진레드와인.jpg" alt="진레드와인">
             <p>풍부한 맛의 진 레드 와인 - $22.99</p>
-            <button @click="addToCart('Zinfandel Red Wine', 22.99)">Add to Cart</button>
+            <button @click="addToCart('진레드와인', 22.99)">장바구니 담기</button>
         </section>
     </main>
 
@@ -198,7 +197,7 @@
             methods: {
                 addToCart(itemName, itemPrice) {
                     if (!this.isLoggedIn) {
-                        alert('You need to log in to add items to your cart.');
+                        alert('장바구니에 상품을 추가하려면 로그인이 필요합니다.');
                         return;
                     }
 
@@ -209,7 +208,7 @@
                         this.cart.push({ name: itemName, price: itemPrice, quantity: 1 });
                     }
                     this.saveCart();
-                    alert(`${itemName} has been added to your cart.`);
+                    alert(`${itemName} 장바구니에 추가되었습니다.`);
                 },
                 saveCart() {
                     sessionStorage.setItem('cart', JSON.stringify(this.cart));
@@ -220,10 +219,10 @@
                 },
                 checkout() {
                     if (!this.isLoggedIn) {
-                        alert('You need to log in to proceed with checkout.');
+                        alert('결제를 진행하시려면 로그인이 필요합니다.');
                         return;
                     }
-                    alert('Checkout feature is not implemented yet.');
+                    alert('Checkout 기능은 아직 구현되지 않았습니다.');
                 }
             }
         }).mount('body');
